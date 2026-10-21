@@ -49,9 +49,9 @@ class ApiClient {
   Uri _uri(String path) => Uri.parse('${ApiConstants.baseUrl}$path');
 
   Map<String, String> _headers(String? token) => {
-        'Accept': 'application/json',
-        if (token != null) 'Authorization': 'Bearer $token',
-      };
+    'Accept': 'application/json',
+    if (token != null) 'Authorization': 'Bearer $token',
+  };
 
   Future<Map<String, dynamic>> _send(
     Future<http.Response> Function() request,
@@ -75,7 +75,8 @@ class ApiClient {
     }
     if (decoded is! Map<String, dynamic>) throw const ApiException();
 
-    final isSuccess = response.statusCode >= 200 &&
+    final isSuccess =
+        response.statusCode >= 200 &&
         response.statusCode < 300 &&
         decoded['error'] != true;
     if (!isSuccess) throw ApiException(decoded['message'] as String?);

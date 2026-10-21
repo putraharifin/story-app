@@ -37,5 +37,21 @@
   "retry": "Try again",
   "refresh": "Refresh",
   "emptyStories": "No stories yet. Be the first to share one!",
-  "errorGeneric": "Something went wrong. Check your connection and try again."
+  "errorGeneric": "Something went wrong. Check your connection and try again.",
+  "storyLocation": "Story location",
+  "locationSectionTitle": "Location",
+  "addLocation": "Add location",
+  "changeLocation": "Tap to change",
+  "removeLocation": "Remove location",
+  "locationLockedTitle": "Adding a location is a Paid feature",
+  "locationLockedSubtitle": "Use the Paid version to attach a location to your story",
+  "pickLocationTitle": "Choose location",
+  "pickLocationHint": "Tap the map to place a marker",
+  "useThisLocation": "Use this location",
+  "myLocation": "My location",
+  "locationUnavailable": "Unable to get your location. Check the permission and GPS.",
+  "addressLoading": "Finding address...",
+  "addressUnavailable": "Address not available",
+  "selectedLocation": "Selected location",
+  "loadMoreFailed": "Failed to load more stories"
 }

@@ -7,8 +7,10 @@ import 'package:story_app/data/datasources/auth_local_data_source.dart';
 import 'package:story_app/data/datasources/auth_remote_data_source.dart';
 import 'package:story_app/data/datasources/story_remote_data_source.dart';
 import 'package:story_app/data/repositories/auth_repository_impl.dart';
+import 'package:story_app/data/repositories/location_repository_impl.dart';
 import 'package:story_app/data/repositories/story_repository_impl.dart';
 import 'package:story_app/domain/repositories/auth_repository.dart';
+import 'package:story_app/domain/repositories/location_repository.dart';
 import 'package:story_app/domain/repositories/story_repository.dart';
 import 'package:story_app/presentation/providers/auth_provider.dart';
 import 'package:story_app/presentation/providers/locale_provider.dart';
@@ -28,11 +30,13 @@ Future<void> main() async {
     remote: StoryRemoteDataSource(apiClient),
     local: localDataSource,
   );
+  const LocationRepository locationRepository = LocationRepositoryImpl();
 
   runApp(
     MultiProvider(
       providers: [
         Provider<StoryRepository>.value(value: storyRepository),
+        Provider<LocationRepository>.value(value: locationRepository),
         ChangeNotifierProvider(create: (_) => AuthProvider(authRepository)),
         ChangeNotifierProvider(create: (_) => LocaleProvider(prefs)),
       ],

@@ -1,25 +1,35 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:story_app/domain/entities/story.dart';
 
-class StoryModel extends Story {
-  const StoryModel({
-    required super.id,
-    required super.name,
-    required super.description,
-    required super.photoUrl,
-    required super.createdAt,
-    super.lat,
-    super.lon,
-  });
+part 'story_model.freezed.dart';
+part 'story_model.g.dart';
 
-  factory StoryModel.fromJson(Map<String, dynamic> json) {
-    return StoryModel(
-      id: json['id'] as String,
-      name: json['name'] as String,
-      description: json['description'] as String,
-      photoUrl: json['photoUrl'] as String,
-      createdAt: DateTime.parse(json['createdAt'] as String),
-      lat: (json['lat'] as num?)?.toDouble(),
-      lon: (json['lon'] as num?)?.toDouble(),
+@freezed
+abstract class StoryModel with _$StoryModel {
+  const StoryModel._();
+
+  const factory StoryModel({
+    required String id,
+    required String name,
+    required String description,
+    required String photoUrl,
+    required DateTime createdAt,
+    double? lat,
+    double? lon,
+  }) = _StoryModel;
+
+  factory StoryModel.fromJson(Map<String, dynamic> json) =>
+      _$StoryModelFromJson(json);
+
+  Story toEntity() {
+    return Story(
+      id: id,
+      name: name,
+      description: description,
+      photoUrl: photoUrl,
+      createdAt: createdAt,
+      lat: lat,
+      lon: lon,
     );
   }
 }

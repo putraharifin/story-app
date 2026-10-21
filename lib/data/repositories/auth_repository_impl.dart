@@ -4,11 +4,7 @@ import 'package:story_app/domain/entities/user_session.dart';
 import 'package:story_app/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  const AuthRepositoryImpl({
-    required AuthRemoteDataSource remote,
-    required AuthLocalDataSource local,
-  })  : _remote = remote,
-        _local = local;
+  const AuthRepositoryImpl({required this._remote, required this._local});
 
   final AuthRemoteDataSource _remote;
   final AuthLocalDataSource _local;
@@ -21,7 +17,8 @@ class AuthRepositoryImpl implements AuthRepository {
     required String email,
     required String password,
   }) async {
-    final session = await _remote.login(email: email, password: password);
+    final model = await _remote.login(email: email, password: password);
+    final session = model.toEntity();
     await _local.saveSession(session);
     return session;
   }

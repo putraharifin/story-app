@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:story_app/core/config/app_flavor.dart';
+import 'package:story_app/core/router/app_router.dart';
 import 'package:story_app/core/utils/validators.dart';
+import 'package:story_app/domain/entities/geo_point.dart';
 import 'package:story_app/l10n/l10n_extension.dart';
 import 'package:story_app/presentation/providers/add_story_provider.dart';
 import 'package:story_app/presentation/widgets/loading_button.dart';
+import 'package:story_app/presentation/widgets/location_selector.dart';
 
 class AddStoryPage extends StatefulWidget {
   const AddStoryPage({super.key});
@@ -40,6 +44,15 @@ class _AddStoryPageState extends State<AddStoryPage> {
       case PickResult.cancelled:
         break;
     }
+  }
+
+  Future<void> _pickLocation() async {
+    final provider = context.read<AddStoryProvider>();
+    final point = await context.push<GeoPoint>(
+      AppRoutes.pickLocation,
+      extra: provider.location,
+    );
+    if (point != null) provider.setLocation(point);
   }
 
   Future<void> _upload() async {
@@ -95,17 +108,30 @@ class _AddStoryPageState extends State<AddStoryPage> {
                           aspectRatio: 1,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(16),
-                            child: image == null
-                                ? ColoredBox(
-                                    color: theme
-                                        .colorScheme.surfaceContainerHighest,
-                                    child: Icon(
-                                      Icons.image_outlined,
-                                      size: 72,
-                                      color: theme.colorScheme.outline,
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 300),
+                              child: image == null
+                                  ? ColoredBox(
+                                      key: const ValueKey('placeholder'),
+                                      color: theme
+                                          .colorScheme
+                                          .surfaceContainerHighest,
+                                      child: Center(
+                                        child: Icon(
+                                          Icons.image_outlined,
+                                          size: 72,
+                                          color: theme.colorScheme.outline,
+                                        ),
+                                      ),
+                                    )
+                                  : Image.file(
+                                      image,
+                                      key: ValueKey(image.path),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: double.infinity,
                                     ),
-                                  )
-                                : Image.file(image, fit: BoxFit.cover),
+                            ),
                           ),
                         ),
                       ),
@@ -146,6 +172,15 @@ class _AddStoryPageState extends State<AddStoryPage> {
                         alignLabelWithHint: true,
                         border: const OutlineInputBorder(),
                       ),
+                    ),
+                    const SizedBox(height: 16),
+                    LocationSelector(
+                      location: provider.location,
+                      isLocked: !AppFlavor.isPaid,
+                      onPick: isUploading ? null : _pickLocation,
+                      onClear: isUploading
+                          ? null
+                          : () => provider.setLocation(null),
                     ),
                     const SizedBox(height: 16),
                     LoadingButton(

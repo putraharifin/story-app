@@ -87,21 +87,32 @@ class _StoryListPageState extends State<StoryListPage> {
           onAction: provider.fetchStories,
         );
       case ViewState.success:
+        final stories = provider.stories;
+        final itemCount = stories.length + (provider.showFooter ? 1 : 0);
+
         return RefreshIndicator(
           onRefresh: () => provider.fetchStories(silent: true),
           child: ListView.builder(
             controller: _scrollController,
             physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(12, 12, 12, 88),
-            itemCount: provider.stories.length,
+            itemCount: itemCount,
             itemBuilder: (context, index) {
-              final story = provider.stories[index];
+              if (index >= stories.length) {
+                return _buildFooter(provider, l10n);
+              }
+
+              final story = stories[index];
               return Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 600),
                   child: StoryCard(
+                    key: ValueKey(story.id),
                     story: story,
-                    onTap: () => context.push(AppRoutes.storyDetail(story.id)),
+                    onTap: () => context.push(
+                      AppRoutes.storyDetail(story.id),
+                      extra: story,
+                    ),
                   ),
                 ),
               );
@@ -109,5 +120,32 @@ class _StoryListPageState extends State<StoryListPage> {
           ),
         );
     }
+  }
+
+  /// Bottom item: a spinner while the next page loads, or a retry action.
+  /// Building it is what triggers the next page (infinite scrolling).
+  Widget _buildFooter(StoryListProvider provider, AppLocalizations l10n) {
+    if (provider.loadMoreFailed) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          children: [
+            Text(l10n.loadMoreFailed),
+            TextButton(
+              onPressed: provider.fetchNextPage,
+              child: Text(l10n.retry),
+            ),
+          ],
+        ),
+      );
+    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      provider.fetchNextPage();
+    });
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 24),
+      child: Center(child: CircularProgressIndicator()),
+    );
   }
 }

@@ -1,11 +1,12 @@
-class UserSession {
-  const UserSession({
-    required this.userId,
-    required this.name,
-    required this.token,
-  });
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final String userId;
-  final String name;
-  final String token;
+part 'user_session.freezed.dart';
+
+@freezed
+abstract class UserSession with _$UserSession {
+  const factory UserSession({
+    required String userId,
+    required String name,
+    required String token,
+  }) = _UserSession;
 }

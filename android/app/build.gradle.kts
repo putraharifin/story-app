@@ -12,6 +12,10 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
+
+     buildFeatures {
+        resValues = true
+    }
     }
 
     defaultConfig {
@@ -28,6 +32,21 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
+
+    flavorDimensions += "tier"
+    productFlavors {
+        create("free") {
+            dimension = "tier"
+            applicationIdSuffix = ".free"
+            resValue("string", "app_name", "Story App Free")
+        }
+        create("paid") {
+            dimension = "tier"
+            applicationIdSuffix = ".paid"
+            resValue("string", "app_name", "Story App Paid")
+        }
+    }
+
 
     buildTypes {
         release {

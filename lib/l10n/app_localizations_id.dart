@@ -124,4 +124,55 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get errorGeneric =>
       'Terjadi kesalahan. Periksa koneksi internet dan coba lagi.';
+
+  @override
+  String get storyLocation => 'Lokasi cerita';
+
+  @override
+  String get locationSectionTitle => 'Lokasi';
+
+  @override
+  String get addLocation => 'Tambah lokasi';
+
+  @override
+  String get changeLocation => 'Ketuk untuk mengubah';
+
+  @override
+  String get removeLocation => 'Hapus lokasi';
+
+  @override
+  String get locationLockedTitle =>
+      'Menambahkan lokasi adalah fitur versi Paid';
+
+  @override
+  String get locationLockedSubtitle =>
+      'Gunakan versi Paid untuk menyertakan lokasi pada ceritamu';
+
+  @override
+  String get pickLocationTitle => 'Pilih lokasi';
+
+  @override
+  String get pickLocationHint => 'Ketuk peta untuk menaruh marker';
+
+  @override
+  String get useThisLocation => 'Gunakan lokasi ini';
+
+  @override
+  String get myLocation => 'Lokasi saya';
+
+  @override
+  String get locationUnavailable =>
+      'Tidak dapat mengambil lokasi. Periksa izin dan GPS.';
+
+  @override
+  String get addressLoading => 'Mencari alamat...';
+
+  @override
+  String get addressUnavailable => 'Alamat tidak tersedia';
+
+  @override
+  String get selectedLocation => 'Lokasi terpilih';
+
+  @override
+  String get loadMoreFailed => 'Gagal memuat cerita berikutnya';
 }

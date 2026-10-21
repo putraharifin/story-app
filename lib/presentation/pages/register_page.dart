@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
     if (success) {
       messenger.showSnackBar(SnackBar(content: Text(l10n.registerSuccess)));
-      context.pop();
+      context.go('/login');
     } else {
       messenger.showSnackBar(
         SnackBar(content: Text(auth.errorMessage ?? l10n.errorGeneric)),

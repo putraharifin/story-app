@@ -8,6 +8,8 @@ import 'package:story_app/l10n/app_localizations.dart';
 import 'package:story_app/l10n/l10n_extension.dart';
 import 'package:story_app/presentation/providers/story_detail_provider.dart';
 import 'package:story_app/presentation/widgets/message_view.dart';
+import 'package:story_app/presentation/widgets/story_card.dart';
+import 'package:story_app/presentation/widgets/story_location_map.dart';
 
 class StoryDetailPage extends StatelessWidget {
   const StoryDetailPage({super.key});
@@ -19,15 +21,11 @@ class StoryDetailPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l10n.storyDetailTitle)),
-      body: _buildBody(context, provider, l10n),
+      body: _buildBody(provider, l10n),
     );
   }
 
-  Widget _buildBody(
-    BuildContext context,
-    StoryDetailProvider provider,
-    AppLocalizations l10n,
-  ) {
+  Widget _buildBody(StoryDetailProvider provider, AppLocalizations l10n) {
     final story = provider.story;
 
     switch (provider.state) {
@@ -43,23 +41,34 @@ class StoryDetailPage extends StatelessWidget {
         );
       case ViewState.success:
         if (story == null) return const SizedBox.shrink();
-        return _StoryDetailContent(story: story);
+        return _StoryDetailContent(
+          story: story,
+          address: provider.address,
+          isAddressLoading: provider.isAddressLoading,
+        );
     }
   }
 }
 
 class _StoryDetailContent extends StatelessWidget {
-  const _StoryDetailContent({required this.story});
+  const _StoryDetailContent({
+    required this.story,
+    required this.address,
+    required this.isAddressLoading,
+  });
 
   final Story story;
+  final String? address;
+  final bool isAddressLoading;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final locale = Localizations.localeOf(context).toString();
-    final date = DateFormat.yMMMMd(locale).add_Hm().format(
-          story.createdAt.toLocal(),
-        );
+    final date = DateFormat.yMMMMd(locale)
+        .add_Hm()
+        .format(story.createdAt.toLocal());
+    final location = story.location;
 
     return SingleChildScrollView(
       child: Center(
@@ -68,19 +77,22 @@ class _StoryDetailContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AspectRatio(
-                aspectRatio: 4 / 3,
-                child: CachedNetworkImage(
-                  imageUrl: story.photoUrl,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) =>
-                      const Center(child: CircularProgressIndicator()),
-                  errorWidget: (context, url, error) => Center(
-                    child: Icon(
-                      Icons.broken_image_outlined,
-                      size: 64,
-                      color: theme.colorScheme.outline,
+              Hero(
+                tag: StoryCard.heroTag(story.id),
+                child: AspectRatio(
+                  aspectRatio: 4 / 3,
+                  child: CachedNetworkImage(
+                    imageUrl: story.photoUrl,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) =>
+                        const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => Center(
+                      child: Icon(
+                        Icons.broken_image_outlined,
+                        size: 64,
+                        color: theme.colorScheme.outline,
+                      ),
                     ),
                   ),
                 ),
@@ -94,14 +106,26 @@ class _StoryDetailContent extends StatelessWidget {
                     const SizedBox(height: 4),
                     Text(
                       date,
-                      style: theme.textTheme.bodySmall
-                          ?.copyWith(color: theme.colorScheme.outline),
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.outline,
+                      ),
                     ),
                     const SizedBox(height: 16),
                     Text(story.description, style: theme.textTheme.bodyLarge),
                   ],
                 ),
               ),
+              if (location != null)
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+                  child: StoryLocationMap(
+                    markerId: story.id,
+                    title: story.name,
+                    location: location,
+                    address: address,
+                    isAddressLoading: isAddressLoading,
+                  ),
+                ),
             ],
           ),
         ),

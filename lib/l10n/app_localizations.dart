@@ -325,6 +325,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong. Check your connection and try again.'**
   String get errorGeneric;
+
+  /// No description provided for @storyLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Story location'**
+  String get storyLocation;
+
+  /// No description provided for @locationSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get locationSectionTitle;
+
+  /// No description provided for @addLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Add location'**
+  String get addLocation;
+
+  /// No description provided for @changeLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap to change'**
+  String get changeLocation;
+
+  /// No description provided for @removeLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove location'**
+  String get removeLocation;
+
+  /// No description provided for @locationLockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adding a location is a Paid feature'**
+  String get locationLockedTitle;
+
+  /// No description provided for @locationLockedSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the Paid version to attach a location to your story'**
+  String get locationLockedSubtitle;
+
+  /// No description provided for @pickLocationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose location'**
+  String get pickLocationTitle;
+
+  /// No description provided for @pickLocationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the map to place a marker'**
+  String get pickLocationHint;
+
+  /// No description provided for @useThisLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this location'**
+  String get useThisLocation;
+
+  /// No description provided for @myLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'My location'**
+  String get myLocation;
+
+  /// No description provided for @locationUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to get your location. Check the permission and GPS.'**
+  String get locationUnavailable;
+
+  /// No description provided for @addressLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Finding address...'**
+  String get addressLoading;
+
+  /// No description provided for @addressUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Address not available'**
+  String get addressUnavailable;
+
+  /// No description provided for @selectedLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected location'**
+  String get selectedLocation;
+
+  /// No description provided for @loadMoreFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load more stories'**
+  String get loadMoreFailed;
 }
 
 class _AppLocalizationsDelegate

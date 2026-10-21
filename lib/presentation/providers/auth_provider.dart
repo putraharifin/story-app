@@ -5,8 +5,8 @@ import 'package:story_app/domain/repositories/auth_repository.dart';
 
 class AuthProvider extends ChangeNotifier {
   AuthProvider(AuthRepository repository)
-      : _repository = repository,
-        _session = repository.getSession();
+    : _repository = repository,
+      _session = repository.getSession();
 
   final AuthRepository _repository;
 

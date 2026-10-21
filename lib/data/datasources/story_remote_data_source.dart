@@ -8,8 +8,15 @@ class StoryRemoteDataSource {
 
   final ApiClient _client;
 
-  Future<List<StoryModel>> getStories(String token) async {
-    final body = await _client.get('/stories?size=50', token: token);
+  Future<List<StoryModel>> getStories({
+    required int page,
+    required int size,
+    required String token,
+  }) async {
+    final body = await _client.get(
+      '/stories?page=$page&size=$size&location=0',
+      token: token,
+    );
     final list = body['listStory'] as List<dynamic>? ?? [];
     return list
         .map((item) => StoryModel.fromJson(item as Map<String, dynamic>))
@@ -25,10 +32,18 @@ class StoryRemoteDataSource {
     required String description,
     required File photo,
     required String token,
+    double? lat,
+    double? lon,
   }) async {
     await _client.postMultipart(
       '/stories',
-      fields: {'description': description},
+      fields: {
+        'description': description,
+        if (lat != null && lon != null) ...{
+          'lat': lat.toString(),
+          'lon': lon.toString(),
+        },
+      },
       fileField: 'photo',
       file: photo,
       token: token,

@@ -37,5 +37,21 @@
   "retry": "Coba lagi",
   "refresh": "Muat ulang",
   "emptyStories": "Belum ada cerita. Jadilah yang pertama berbagi!",
-  "errorGeneric": "Terjadi kesalahan. Periksa koneksi internet dan coba lagi."
+  "errorGeneric": "Terjadi kesalahan. Periksa koneksi internet dan coba lagi.",
+  "storyLocation": "Lokasi cerita",
+  "locationSectionTitle": "Lokasi",
+  "addLocation": "Tambah lokasi",
+  "changeLocation": "Ketuk untuk mengubah",
+  "removeLocation": "Hapus lokasi",
+  "locationLockedTitle": "Menambahkan lokasi adalah fitur versi Paid",
+  "locationLockedSubtitle": "Gunakan versi Paid untuk menyertakan lokasi pada ceritamu",
+  "pickLocationTitle": "Pilih lokasi",
+  "pickLocationHint": "Ketuk peta untuk menaruh marker",
+  "useThisLocation": "Gunakan lokasi ini",
+  "myLocation": "Lokasi saya",
+  "locationUnavailable": "Tidak dapat mengambil lokasi. Periksa izin dan GPS.",
+  "addressLoading": "Mencari alamat...",
+  "addressUnavailable": "Alamat tidak tersedia",
+  "selectedLocation": "Lokasi terpilih",
+  "loadMoreFailed": "Gagal memuat cerita berikutnya"
 }

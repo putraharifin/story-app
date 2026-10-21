@@ -123,4 +123,54 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorGeneric =>
       'Something went wrong. Check your connection and try again.';
+
+  @override
+  String get storyLocation => 'Story location';
+
+  @override
+  String get locationSectionTitle => 'Location';
+
+  @override
+  String get addLocation => 'Add location';
+
+  @override
+  String get changeLocation => 'Tap to change';
+
+  @override
+  String get removeLocation => 'Remove location';
+
+  @override
+  String get locationLockedTitle => 'Adding a location is a Paid feature';
+
+  @override
+  String get locationLockedSubtitle =>
+      'Use the Paid version to attach a location to your story';
+
+  @override
+  String get pickLocationTitle => 'Choose location';
+
+  @override
+  String get pickLocationHint => 'Tap the map to place a marker';
+
+  @override
+  String get useThisLocation => 'Use this location';
+
+  @override
+  String get myLocation => 'My location';
+
+  @override
+  String get locationUnavailable =>
+      'Unable to get your location. Check the permission and GPS.';
+
+  @override
+  String get addressLoading => 'Finding address...';
+
+  @override
+  String get addressUnavailable => 'Address not available';
+
+  @override
+  String get selectedLocation => 'Selected location';
+
+  @override
+  String get loadMoreFailed => 'Failed to load more stories';
 }

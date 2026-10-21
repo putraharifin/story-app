@@ -1,17 +1,23 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:story_app/domain/entities/user_session.dart';
 
-class UserSessionModel extends UserSession {
-  const UserSessionModel({
-    required super.userId,
-    required super.name,
-    required super.token,
-  });
+part 'user_session_model.freezed.dart';
+part 'user_session_model.g.dart';
 
-  factory UserSessionModel.fromJson(Map<String, dynamic> json) {
-    return UserSessionModel(
-      userId: json['userId'] as String,
-      name: json['name'] as String,
-      token: json['token'] as String,
-    );
+@freezed
+abstract class UserSessionModel with _$UserSessionModel {
+  const UserSessionModel._();
+
+  const factory UserSessionModel({
+    required String userId,
+    required String name,
+    required String token,
+  }) = _UserSessionModel;
+
+  factory UserSessionModel.fromJson(Map<String, dynamic> json) =>
+      _$UserSessionModelFromJson(json);
+
+  UserSession toEntity() {
+    return UserSession(userId: userId, name: name, token: token);
   }
 }

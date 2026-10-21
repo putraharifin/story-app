@@ -116,8 +116,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 8),
                     TextButton(
-                      onPressed:
-                          isLoading ? null : () => context.push(AppRoutes.register),
+                      onPressed: isLoading
+                          ? null
+                          : () => context.push(AppRoutes.register),
                       child: Text(l10n.noAccountYet),
                     ),
                   ],
